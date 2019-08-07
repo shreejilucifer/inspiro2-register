@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "Inspiro2-Register",
+    "slug": "inspiro2-register",
+    "privacy": "public",
+    "sdkVersion": "34.0.0",
+    "platforms": ["ios", "android", "web"],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#d1d1d1",
+      "mdpi": "./assets/splash-screen/drawable-mdpi/splash.png",
+      "hdpi": "./assets/splash-screen/drawable-hdpi/splash.png",
+      "xhdpi": "./assets/splash-screen/drawable-xhdpi/splash.png",
+      "xxhdpi": "./assets/splash-screen/drawable-xxhdpi/splash.png",
+      "xxxhdpi": "./assets/splash-screen/drawable-xxxhdpi/splash.png"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    }
+  }
+}
