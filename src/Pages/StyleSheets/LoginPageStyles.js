@@ -13,11 +13,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingTop: 70,
     paddingLeft: 25,
-    paddingRight: 25,
+    paddingRight: 25
   },
   logoPillContainer: {
-    position: 'absolute',
-    alignSelf: 'center',
+    position: "absolute",
+    alignSelf: "center",
     backgroundColor: "#e6e6e6",
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
@@ -45,38 +45,44 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     paddingBottom: 20,
     marginBottom: 50,
-    flexDirection: 'column'
+    flexDirection: "column"
   },
   inputGroup: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     borderBottomColor: "#272727",
     borderBottomWidth: 1,
     paddingBottom: 10,
-    marginTop: 20,
+    marginTop: 20
   },
   inputIcon: {
     width: 15,
-    height: 15,
+    height: 15
   },
   inputContainer: {
     marginLeft: 15,
-    width: '100%'
+    width: "100%"
   },
   nextbtnContainer: {
-    alignSelf: 'center',
+    alignSelf: "center",
     backgroundColor: "#ffffff",
-    width: '50%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: "50%",
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 25,
     height: 50,
-    transform: [{translateY: -25}],
-    elevation: 3,
+    transform: [{ translateY: -25 }],
+    elevation: 3
   },
   nextbtnText: {
     textAlign: "center",
     color: "#343434",
+    fontSize: 20,
+    fontFamily: "Lato"
+  },
+  errorMessage: {
+    textAlign: "center",
+    color: "red",
     fontSize: 20,
     fontFamily: "Lato"
   }

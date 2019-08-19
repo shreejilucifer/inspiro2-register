@@ -1,11 +1,20 @@
 import React, { PureComponent } from 'react'
-import { Text, View, Image, TextInput, TouchableOpacity } from 'react-native'
+import {
+  Text,
+  View,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  ActivityIndicator,
+  AsyncStorage
+} from "react-native";
 import Page from './Components/Page'
 import LogoPill from './Components/LogoPill'
 import styles from './StyleSheets/LoginPageStyles'
-import nameicon from '../../assets/icons/nameicon.png'
 import mailicon from '../../assets/icons/mailicon.png'
 import passwordicon from '../../assets/icons/passwordicon.png'
+import Keys from '../Config'
+import axios from 'axios'
 
 export default class LoginPage extends PureComponent {
   static navigationOptions = {
@@ -13,26 +22,70 @@ export default class LoginPage extends PureComponent {
   };
 
   state = {
-    name: "",
-    email: "",
-    password: ""
+    phone: "",
+    password: "",
+    loading: false,
+    error: ""
   }
 
   onChangeText = (ch, value) => {
     switch( ch ) {
-      case 'name': this.setState({ name: value }); break;
-      case 'email': this.setState({ email: value }); break;
+      case 'phone': this.setState({ phone: value }); break;
       case 'password': this.setState({ password: value }); break;
       default: console.log("Invalid onChangeText");
     }
   }
 
-  onClickNext = ({name, email, password}, navigation) => {
-    console.log( name );
-    console.log( email );
-    console.log( password );
-    navigation.navigate('LoginOTP');
+  onClickNext = ({ phone, password}, navigation) => {
+
+    var ph = /^[6-9]\d{9}$/;
+
+    if( phone === "" || password === "" ) {
+      this.setState({ error: "Phone Or Password Cannot Be Blank"});
+    } else if( ph.test(phone) === false ) {
+      this.setState({ error: "Phone Invalid" });
+    } else {
+      this.setState({ loading: true });
+
+      var settings = {
+        url: Keys.APIURL + "/login",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        data: {
+          mobile: phone,
+          password: password
+        }
+      };
+
+      axios(settings)
+        .then(async res => {
+          if (res.data.status !== 200) {
+            this.setState({ error: res.data.auth, loading: false });
+          } else {
+            await AsyncStorage.setItem(
+              "userToken",
+              res.headers["x-auth-token"]
+            );
+            this.setState({ loading: false, error: "" });
+            navigation.navigate("App");
+          }
+        })
+        .catch(err => {
+          this.setState({
+            loading: false,
+            error: "Try Again!"
+          });
+      });
+    }
+
   }
+
+  async componentDidMount() {
+   await AsyncStorage.removeItem("userToken");
+  }
+
 
   render() {
     return (
@@ -41,23 +94,17 @@ export default class LoginPage extends PureComponent {
           <View style={styles.loginFormContainer}>
             <LogoPill />
             <Text style={styles.loginTitle}>Log In</Text>
-            <Text style={styles.loginSubtitle}>Enter your details, click on next.</Text>
+            <Text style={styles.loginSubtitle}>
+              Enter your details, click on next.
+            </Text>
             <View style={styles.loginContainer}>
-              <View style={styles.inputGroup}>
-                <Image source={nameicon} style={styles.inputIcon} />
-                <TextInput
-                  placeholder="Name"
-                  value={this.state.name}
-                  onChangeText={text => this.onChangeText( "name", text )}
-                  style={styles.inputContainer}
-                />
-              </View>
               <View style={styles.inputGroup}>
                 <Image source={mailicon} style={styles.inputIcon} />
                 <TextInput
-                  placeholder="email@mail.com"
-                  value={this.state.email}
-                  onChangeText={text => this.onChangeText("email", text)}
+                  keyboardType="phone-pad"
+                  placeholder="9898989898"
+                  value={this.state.phone}
+                  onChangeText={text => this.onChangeText("phone", text)}
                   style={styles.inputContainer}
                 />
               </View>
@@ -74,13 +121,21 @@ export default class LoginPage extends PureComponent {
             </View>
           </View>
           <TouchableOpacity
-            onPress={()=>this.onClickNext(this.state, this.props.navigation)}
+            onPress={() =>
+              this.onClickNext(this.state, this.props.navigation)
+            }
+            disabled={this.state.loading}
             style={styles.nextbtnContainer}
           >
-            <Text style={styles.nextbtnText}>Next</Text>
+            {this.state.loading ? (
+              <ActivityIndicator size="small" color="#272727" />
+            ) : (
+              <Text style={styles.nextbtnText}>Next</Text>
+            )}
           </TouchableOpacity>
+          <Text style={styles.errorMessage}>{this.state.error}</Text>
         </View>
       </Page>
-    )
+    );
   }
 }
