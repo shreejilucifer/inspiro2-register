@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { Text, View, Image, TextInput, TouchableOpacity } from 'react-native'
+import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
 import Page from './Components/Page'
 import BottomContainer from './Components/BottomContainer'
 import LogoPill from './Components/LogoPill'
@@ -62,6 +62,10 @@ export default class LoginPage extends PureComponent {
     }
   }
 
+  focusNextField(nextField) {
+    this.refs[nextField].focus();
+  }
+
   render() {
     return (
       <Page>
@@ -78,6 +82,9 @@ export default class LoginPage extends PureComponent {
               <View style={styles.inputGroup}>
                 <Image source={nameicon} style={styles.inputIcon} />
                 <TextInput
+                  ref="1"
+                  returnKeyType="next"
+                  onSubmitEditing={() => this.focusNextField("2")}
                   placeholder="First Name"
                   value={this.state.firstname}
                   onChangeText={text =>
@@ -89,6 +96,9 @@ export default class LoginPage extends PureComponent {
               <View style={styles.inputGroup}>
                 <Image source={nameicon} style={styles.inputIcon} />
                 <TextInput
+                  ref="2"
+                  returnKeyType="next"
+                  onSubmitEditing={() => this.focusNextField("3")}
                   placeholder="Last Name"
                   value={this.state.lastname}
                   onChangeText={text => this.onChangeText("lastname", text)}
@@ -98,6 +108,9 @@ export default class LoginPage extends PureComponent {
               <View style={styles.inputGroup}>
                 <Image source={mailicon} style={styles.inputIcon} />
                 <TextInput
+                  ref="3"
+                  returnKeyType="next"
+                  onSubmitEditing={() => this.focusNextField("4")}
                   placeholder="email@mail.com"
                   value={this.state.email}
                   onChangeText={text => this.onChangeText("email", text)}
@@ -107,6 +120,8 @@ export default class LoginPage extends PureComponent {
               <View style={styles.inputGroup}>
                 <Image source={passwordicon} style={styles.inputIcon} />
                 <TextInput
+                  ref="4"
+                  returnKeyType="done"
                   keyboardType="phone-pad"
                   placeholder="Mobile No."
                   value={this.state.mobile}
@@ -126,7 +141,7 @@ export default class LoginPage extends PureComponent {
           </View>
           <Text style={styles.errorMessage}>{this.state.error}</Text>
           <BottomContainer
-            active='register'
+            active="register"
             navigation={this.props.navigation}
           />
         </View>

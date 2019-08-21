@@ -4,6 +4,9 @@
     "slug": "inspiro2-register",
     "privacy": "public",
     "sdkVersion": "34.0.0",
+    "android": {
+      "package": "com.shreejipedhadiya.inspiro2register"
+    },
     "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
     "orientation": "portrait",
@@ -24,6 +27,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": ""
   }
 }

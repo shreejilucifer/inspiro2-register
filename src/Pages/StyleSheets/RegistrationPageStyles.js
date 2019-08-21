@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     color: "#272727"
   },
   loginContainer: {
-    paddingTop: 40,
+    paddingTop: 20,
     paddingBottom: 20,
     marginBottom: 20,
     flexDirection: "column"
@@ -50,10 +50,10 @@ const styles = StyleSheet.create({
   inputGroup: {
     flexDirection: "row",
     alignItems: "center",
-    borderBottomColor: "#272727",
-    borderBottomWidth: 1,
     paddingBottom: 10,
-    marginTop: 20
+    marginTop: 20,
+    borderBottomColor: "#272727",
+    borderBottomWidth: 1
   },
   inputIcon: {
     width: 15,
@@ -71,7 +71,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 25,
     height: 50,
-    transform: [{ translateY: 25 }],
     elevation: 3
   },
   nextbtnText: {

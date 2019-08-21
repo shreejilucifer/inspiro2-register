@@ -61,7 +61,7 @@ export default class LoginPage extends PureComponent {
 
       axios(settings)
         .then(async res => {
-          if (res.data.status !== 200) {
+          if (res.data.auth !== "Successfully Logged in") {
             this.setState({ error: res.data.auth, loading: false });
           } else {
             await AsyncStorage.setItem(
@@ -86,6 +86,10 @@ export default class LoginPage extends PureComponent {
    await AsyncStorage.removeItem("userToken");
   }
 
+  focusNextField(nextField) {
+    this.refs[nextField].focus();
+  }
+
 
   render() {
     return (
@@ -101,9 +105,12 @@ export default class LoginPage extends PureComponent {
               <View style={styles.inputGroup}>
                 <Image source={mailicon} style={styles.inputIcon} />
                 <TextInput
+                  ref="1"
+                  returnKeyType="next"
                   keyboardType="phone-pad"
                   placeholder="9898989898"
                   value={this.state.phone}
+                  onSubmitEditing={() => this.focusNextField("2")}
                   onChangeText={text => this.onChangeText("phone", text)}
                   style={styles.inputContainer}
                 />
@@ -111,6 +118,7 @@ export default class LoginPage extends PureComponent {
               <View style={styles.inputGroup}>
                 <Image source={passwordicon} style={styles.inputIcon} />
                 <TextInput
+                  ref="2"
                   placeholder="•••••••"
                   value={this.state.password}
                   onChangeText={text => this.onChangeText("password", text)}
@@ -120,19 +128,21 @@ export default class LoginPage extends PureComponent {
               </View>
             </View>
           </View>
-          <TouchableOpacity
-            onPress={() =>
-              this.onClickNext(this.state, this.props.navigation)
-            }
-            disabled={this.state.loading}
-            style={styles.nextbtnContainer}
-          >
-            {this.state.loading ? (
-              <ActivityIndicator size="small" color="#272727" />
-            ) : (
-              <Text style={styles.nextbtnText}>Next</Text>
-            )}
-          </TouchableOpacity>
+          <View style={{ zIndex: 1 }}>
+            <TouchableOpacity
+              onPress={() =>
+                this.onClickNext(this.state, this.props.navigation)
+              }
+              disabled={this.state.loading}
+              style={styles.nextbtnContainer}
+            >
+              {this.state.loading ? (
+                <ActivityIndicator size="small" color="#272727" />
+              ) : (
+                <Text style={styles.nextbtnText}>Login</Text>
+              )}
+            </TouchableOpacity>
+          </View>
           <Text style={styles.errorMessage}>{this.state.error}</Text>
         </View>
       </Page>

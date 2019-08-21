@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingTop: 70,
     paddingLeft: 25,
-    paddingRight: 25
+    paddingRight: 25,
+    transform: [{ translateY: 25 }]
   },
   logoPillContainer: {
     position: "absolute",
@@ -66,12 +67,12 @@ const styles = StyleSheet.create({
   nextbtnContainer: {
     alignSelf: "center",
     backgroundColor: "#ffffff",
-    width: "50%",
+    width: "70%",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 25,
     height: 50,
-    transform: [{ translateY: -25 }],
+    // transform: [{ translateY: -25 }],
     elevation: 3
   },
   nextbtnText: {

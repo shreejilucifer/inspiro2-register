@@ -38,7 +38,7 @@ export default class StatisticsPage extends PureComponent {
                   style={{
                     fontFamily: "LatoBlack",
                     fontSize: 40,
-                    textAlign: "left",
+                    textAlign: "center",
                     color: "#000000"
                   }}
                 >
@@ -48,7 +48,6 @@ export default class StatisticsPage extends PureComponent {
             </View>
           </View>
           <BottomContainer
-            active="statistics"
             navigation={this.props.navigation}
           />
         </View>
